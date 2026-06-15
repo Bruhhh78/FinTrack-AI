@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:5.0
+    container_name: fintrack-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+
+  backend:
+    build: ./backend
+    container_name: fintrack-backend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongodb
+    environment:
+      - MONGODB_URI=mongodb://admin:password@mongodb:27017/fintrack-ai
+      - JWT_SECRET=your-secret-key
+      - NODE_ENV=production
+    volumes:
+      - ./backend:/app
+
+  frontend:
+    build: ./frontend
+    container_name: fintrack-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    environment:
+      - VITE_API_URL=http://localhost:5000/api
+
+volumes:
+  mongodb_data:
