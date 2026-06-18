@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
 import { incomeAPI } from '../services/api';
-import Layout from '../components/Layout';
+
 import {
   Plus, Trash2, X, Search, TrendingUp, Briefcase, Laptop,
   Building2, LineChart, HelpCircle, DollarSign, Calendar, Receipt
@@ -106,7 +106,7 @@ const Income = () => {
   const totalAll = incomes.reduce((sum, i) => sum + i.amount, 0);
 
   return (
-    <Layout>
+    <>
       <AnimatePresence>
         {showModal && <IncomeModal onClose={() => setShowModal(false)} onSubmit={(d) => createMutation.mutateAsync(d)} loading={createMutation.isLoading} />}
       </AnimatePresence>
@@ -230,7 +230,7 @@ const Income = () => {
           )}
         </div>
       </motion.div>
-    </Layout>
+    </>
   );
 };
 

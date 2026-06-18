@@ -5,7 +5,7 @@ import {
   XAxis, YAxis, CartesianGrid, Tooltip, Legend
 } from 'recharts';
 import { analyticsAPI } from '../services/api';
-import Layout from '../components/Layout';
+
 import {
   TrendingUp, TrendingDown, Target, Zap, Activity,
   ArrowUpRight, ArrowDownRight, Layers, Award, Wallet
@@ -95,7 +95,7 @@ const Dashboard = () => {
   const strokeDash = (safeScore / 100) * circumference;
 
   return (
-    <Layout>
+    <>
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ maxWidth: 1400, display: 'flex', flexDirection: 'column', gap: 24 }}>
 
         {/* Stats Row */}
@@ -257,7 +257,7 @@ const Dashboard = () => {
           </motion.div>
         </div>
       </motion.div>
-    </Layout>
+    </>
   );
 };
 

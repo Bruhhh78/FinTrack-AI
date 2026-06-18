@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { motion } from 'framer-motion';
 import { budgetAPI } from '../services/api';
-import Layout from '../components/Layout';
+
 import {
   AlertCircle, Save, Wallet, TrendingDown, BarChart2,
   Utensils, ShoppingBag, Car, Zap, Film, BookOpen, Heart, MoreHorizontal
@@ -57,7 +57,7 @@ const Budget = () => {
   const totalSpent  = budget.totalSpent  || 0;
 
   return (
-    <Layout>
+    <>
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ maxWidth: 1400, display: 'flex', flexDirection: 'column', gap: 24 }}>
 
         {/* Header */}
@@ -193,7 +193,7 @@ const Budget = () => {
         </form>
       </motion.div>
       <style>{`@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`}</style>
-    </Layout>
+    </>
   );
 };
 

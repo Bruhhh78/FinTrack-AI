@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
 import { savingsAPI, goalAPI } from '../services/api';
-import Layout from '../components/Layout';
+
 import {
   Wallet, ArrowUpRight, ArrowDownRight, Layers,
   Calendar, Clock, PiggyBank, Plus, Minus, Info
@@ -54,7 +54,7 @@ const Savings = () => {
   const isLoading = savingsLoading || goalsLoading;
 
   return (
-    <Layout>
+    <>
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ maxWidth: 1200, display: 'flex', flexDirection: 'column', gap: 24 }}>
         
         <div>
@@ -206,7 +206,7 @@ const Savings = () => {
           </>
         )}
       </motion.div>
-    </Layout>
+    </>
   );
 };
 

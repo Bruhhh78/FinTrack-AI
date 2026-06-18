@@ -5,7 +5,7 @@ import {
   ResponsiveContainer, XAxis, YAxis, CartesianGrid, Tooltip, Legend
 } from 'recharts';
 import { analyticsAPI } from '../services/api';
-import Layout from '../components/Layout';
+
 import { TrendingUp, TrendingDown, BarChart3, Activity, Target, Zap, Wallet } from 'lucide-react';
 
 const COLORS = ['#6366f1', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981', '#06b6d4', '#f43f5e', '#84cc16'];
@@ -51,7 +51,7 @@ const Analytics = () => {
   const strokeDash    = (safeScore / 100) * circumference;
 
   return (
-    <Layout>
+    <>
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ maxWidth: 1400, display: 'flex', flexDirection: 'column', gap: 24 }}>
 
         <div>
@@ -236,7 +236,7 @@ const Analytics = () => {
           </div>
         </motion.div>
       </motion.div>
-    </Layout>
+    </>
   );
 };
 

@@ -18,6 +18,7 @@ import Profile from './pages/Profile';
 import AIAdvisor from './pages/AIAdvisor';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import Terms from './pages/Terms';
+import Layout from './components/Layout';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -82,15 +83,17 @@ function App() {
         <Routes>
           {token ? (
             <>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/savings" element={<Savings />} />
-              <Route path="/expenses" element={<Expenses />} />
-              <Route path="/income" element={<Income />} />
-              <Route path="/budget" element={<Budget />} />
-              <Route path="/goals" element={<Goals />} />
-              <Route path="/analytics" element={<Analytics />} />
-              <Route path="/ai-advisor" element={<AIAdvisor />} />
-              <Route path="/profile" element={<Profile />} />
+              <Route element={<Layout />}>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/savings" element={<Savings />} />
+                <Route path="/expenses" element={<Expenses />} />
+                <Route path="/income" element={<Income />} />
+                <Route path="/budget" element={<Budget />} />
+                <Route path="/goals" element={<Goals />} />
+                <Route path="/analytics" element={<Analytics />} />
+                <Route path="/ai-advisor" element={<AIAdvisor />} />
+                <Route path="/profile" element={<Profile />} />
+              </Route>
               <Route path="/privacy" element={<PrivacyPolicy />} />
               <Route path="/terms" element={<Terms />} />
               <Route path="/login" element={<Navigate to="/" />} />

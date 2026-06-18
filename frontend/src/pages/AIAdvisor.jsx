@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 import { motion, AnimatePresence } from 'framer-motion';
 import toast from 'react-hot-toast';
-import Layout from '../components/Layout';
+
 import { aiAPI } from '../services/api';
 import {
   Sparkles, AlertTriangle, TrendingUp,
@@ -23,7 +23,7 @@ const AIAdvisor = () => {
   const scoreColor = score >= 80 ? '#10b981' : score >= 60 ? '#f59e0b' : '#f43f5e';
 
   return (
-    <Layout>
+    <>
       <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 20 }}>
         <div>
           <h2
@@ -288,7 +288,7 @@ const AIAdvisor = () => {
           </AnimatePresence>
         </div>
       </div>
-    </Layout>
+    </>
   );
 };
 

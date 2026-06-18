@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
 import { goalAPI } from '../services/api';
-import Layout from '../components/Layout';
+
 import {
   Plus, Trash2, X, Target, Clock, DollarSign, Calendar,
   CheckCircle2, TrendingUp, Trophy, Plane, GraduationCap,
@@ -171,7 +171,7 @@ const Goals = () => {
   const completedGoals = goals.filter(g => g.status === 'Completed');
 
   return (
-    <Layout>
+    <>
       <AnimatePresence>
         {showGoalModal && (
           <GoalModal onClose={() => setShowGoalModal(false)}
@@ -331,7 +331,7 @@ const Goals = () => {
           </>
         )}
       </motion.div>
-    </Layout>
+    </>
   );
 };
 

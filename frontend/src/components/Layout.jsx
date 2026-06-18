@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation, Outlet } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import useAuthStore from '../store/authStore';
 import useThemeStore from '../store/themeStore';
@@ -117,7 +117,7 @@ const SidebarContent = ({ location, onNavigate, onLogout, user }) => (
 );
 
 /* ─── Main Layout ─── */
-const Layout = ({ children }) => {
+const Layout = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const navigate  = useNavigate();
   const location  = useLocation();
@@ -288,8 +288,19 @@ const Layout = ({ children }) => {
         </header>
 
         {/* Page content */}
-        <main style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
-          {children}
+        <main style={{ flex: 1, overflowY: 'auto', padding: 24, position: 'relative' }}>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={location.pathname}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              style={{ minHeight: '100%', width: '100%' }}
+            >
+              <Outlet />
+            </motion.div>
+          </AnimatePresence>
         </main>
         {/* Footer */}
           <footer aria-label="Site footer" style={{ flexShrink: 0, borderTop: '1px solid var(--border)', background: 'var(--bg-footer)' }}>

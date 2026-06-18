@@ -116,14 +116,21 @@ const Landing = () => {
 
       <header className={`landing-nav${scrolled ? ' landing-nav--scrolled' : ''}`}>
         <div className="landing-container landing-nav-inner">
-          <Link to="/" className="landing-logo">
+          <a 
+            href="#" 
+            onClick={(e) => {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            className="landing-logo"
+          >
             <div className="logo-icon landing-logo-icon">
               <Wallet className="w-5 h-5 text-white" />
             </div>
             <span>
               FinTrack <span className="landing-logo-ai">AI</span>
             </span>
-          </Link>
+          </a>
 
           <nav className="landing-nav-links" aria-label="Main">
             {navLinks.map((link) => (
@@ -451,7 +458,14 @@ const Landing = () => {
         <div className="landing-container">
           <div className="landing-footer-main">
             <div className="landing-footer-brand-block">
-              <Link to="/" className="landing-footer-brand">
+              <a 
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                className="landing-footer-brand"
+              >
                 <div className="logo-icon landing-footer-logo">
                   <Wallet className="w-4 h-4 text-white" />
                 </div>
@@ -459,7 +473,7 @@ const Landing = () => {
                   <span className="landing-footer-brand-name">FinTrack AI</span>
                   <span className="landing-footer-brand-sub">MERN Stack Project</span>
                 </div>
-              </Link>
+              </a>
               <p className="landing-footer-tagline">
                 A full-stack MERN personal finance platform built by Anmol Srivastava —
                 featuring expense tracking, budgeting, analytics, and AI-powered insights.

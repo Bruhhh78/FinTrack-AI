@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
 import { expenseAPI } from '../services/api';
-import Layout from '../components/Layout';
+
 import {
   Plus, Trash2, X, ShoppingBag, Car, Utensils,
   Zap, Film, BookOpen, Heart, MoreHorizontal, Search,
@@ -110,7 +110,7 @@ const Expenses = () => {
   const totalAll = expenses.reduce((sum, e) => sum + e.amount, 0);
 
   return (
-    <Layout>
+    <>
       <AnimatePresence>
         {showModal && <ExpenseModal onClose={() => setShowModal(false)} onSubmit={(d) => createMutation.mutateAsync(d)} loading={createMutation.isLoading} />}
       </AnimatePresence>
@@ -239,7 +239,7 @@ const Expenses = () => {
           )}
         </div>
       </motion.div>
-    </Layout>
+    </>
   );
 };
 

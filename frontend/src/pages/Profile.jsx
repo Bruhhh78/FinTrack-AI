@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { userAPI } from '../services/api';
 import useAuthStore from '../store/authStore';
 import useThemeStore from '../store/themeStore';
-import Layout from '../components/Layout';
+
 import {
   User, Mail, Globe, Palette, Shield, Trash2, Save,
   Calendar, Clock, Camera, Edit3, CheckCircle2, Wallet, AlertTriangle
@@ -67,7 +67,7 @@ const Profile = () => {
     : 'U';
 
   return (
-    <Layout>
+    <>
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ maxWidth: 720, display: 'flex', flexDirection: 'column', gap: 20 }}>
 
         <div>
@@ -264,7 +264,7 @@ const Profile = () => {
           </div>
         )}
       </AnimatePresence>
-    </Layout>
+    </>
   );
 };
 
