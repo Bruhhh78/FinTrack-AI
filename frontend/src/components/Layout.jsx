@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import useAuthStore from '../store/authStore';
 import useThemeStore from '../store/themeStore';
+import AdvisorChatbot from './AdvisorChatbot';
 import {
   LayoutDashboard,
   TrendingDown,
@@ -17,7 +18,8 @@ import {
   ChevronRight,
   Wallet,
   Sun,
-  Moon
+  Moon,
+  Sparkles
 } from 'lucide-react';
 
 const MENU_ITEMS = [
@@ -28,6 +30,7 @@ const MENU_ITEMS = [
   { icon: Target,          label: 'Budget',     path: '/budget',    color: '#f59e0b' },
   { icon: PieChart,        label: 'Goals',      path: '/goals',     color: '#06b6d4' },
   { icon: BarChart3,       label: 'Analytics',  path: '/analytics', color: '#c084fc' },
+  { icon: Sparkles,        label: 'AI Advisor', path: '/ai-advisor', color: '#a855f7' },
   { icon: User,            label: 'Profile',    path: '/profile',   color: '#94a3b8' },
 ];
 
@@ -288,7 +291,22 @@ const Layout = ({ children }) => {
         <main style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
           {children}
         </main>
+        {/* Footer */}
+          <footer aria-label="Site footer" style={{ flexShrink: 0, borderTop: '1px solid var(--border)', background: 'var(--bg-footer)' }}>
+            <div style={{ padding: '10px 20px', display: 'flex', justifyContent: 'center', gap: 10, alignItems: 'center' }}>
+              <nav aria-label="Legal" style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+                <Link to="/privacy" className="text-sm" style={{ color: 'var(--text-muted)' }}>Privacy Policy</Link>
+                <span style={{ color: 'var(--text-muted)' }}>•</span>
+                <Link to="/terms" className="text-sm" style={{ color: 'var(--text-muted)' }}>Terms & Conditions</Link>
+              </nav>
+              <div style={{ marginLeft: 12, color: 'var(--text-muted)', fontSize: 13 }}>
+                © {new Date().getFullYear()} FinTrack AI
+              </div>
+            </div>
+          </footer>
       </div>
+
+      <AdvisorChatbot />
 
       {/* ── Inline responsive helper ── */}
       <style>{`

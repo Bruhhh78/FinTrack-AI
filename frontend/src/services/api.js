@@ -68,6 +68,11 @@ export const userAPI = {
   updateProfile: (data) => API.put('/user/profile', data),
 };
 
+export const aiAPI = {
+  getInsights: () => API.get('/ai/insights'),
+  chat: (data) => API.post('/ai/chat', data),
+};
+
 export const savingsAPI = {
   getDetails: () => API.get('/savings'),
   createTransaction: (data) => API.post('/savings/transaction', data),

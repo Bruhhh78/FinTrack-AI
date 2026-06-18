@@ -75,15 +75,15 @@ const Budget = () => {
         </div>
 
         {/* Summary */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+        <div className="grid-three-col">
           {[
             { label: 'Total Budget',  value: `₹${totalBudget.toLocaleString()}`,                                  color: '#6366f1', icon: Wallet     },
             { label: 'Total Spent',   value: `₹${totalSpent.toLocaleString()}`,                                   color: '#f43f5e', icon: TrendingDown},
             { label: 'Remaining',     value: `₹${Math.max(0, totalBudget - totalSpent).toLocaleString()}`,        color: '#10b981', icon: BarChart2   },
           ].map((s, i) => (
             <motion.div key={s.label} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.07 }}
-              className="glass-card" style={{ padding: 20, display: 'flex', alignItems: 'center', gap: 16 }}>
-              <div style={{ width: 44, height: 44, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', background: `${s.color}15`, border: `1px solid ${s.color}25` }}>
+              className="glass-card p-4 sm:p-5 flex items-center gap-4">
+              <div style={{ width: 44, height: 44, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', background: `${s.color}15`, border: `1px solid ${s.color}25`, flexShrink: 0 }}>
                 <s.icon style={{ width: 20, height: 20, color: s.color }} />
               </div>
               <div>
@@ -96,7 +96,7 @@ const Budget = () => {
 
         {/* Overall Bar */}
         {totalBudget > 0 && (
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="glass-card" style={{ padding: 24 }}>
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="glass-card p-4 sm:p-6">
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 10 }}>
               <p style={{ fontWeight: 600, color: 'var(--text-primary)' }}>Overall Budget Usage</p>
               <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)' }}>{((totalSpent / totalBudget) * 100).toFixed(1)}%</p>
@@ -114,7 +114,7 @@ const Budget = () => {
 
         {/* Budget Grid */}
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 16 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))', gap: 16 }}>
             {CATEGORIES.map((category, idx) => {
               const categoryData = categoryLimits.find(c => c.category === category);
               const limit = categoryData?.limit || 0;
@@ -127,9 +127,9 @@ const Budget = () => {
 
               return (
                 <motion.div key={category} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.06 }}
-                  className="glass-card" style={{ padding: 20, border: `1px solid ${isExceeded ? 'rgba(244,63,94,0.2)' : isWarning ? 'rgba(245,158,11,0.15)' : 'var(--border)'}` }}
+                  className="glass-card p-4 sm:p-5" style={{ border: `1px solid ${isExceeded ? 'rgba(244,63,94,0.2)' : isWarning ? 'rgba(245,158,11,0.15)' : 'var(--border)'}` }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
+                  <div className="flex flex-row items-center justify-between gap-3 flex-wrap mb-4">
                     <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                       <div style={{ width: 36, height: 36, borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', background: `${cfg.color}15`, border: `1px solid ${cfg.color}25` }}>
                         <CatIcon style={{ width: 16, height: 16, color: cfg.color }} />

@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { QueryClientProvider, QueryClient } from 'react-query';
 import { Toaster } from 'react-hot-toast';
 import useAuthStore from './store/authStore';
 import useThemeStore from './store/themeStore';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Landing from './pages/Landing';
 import Dashboard from './pages/Dashboard';
 import Savings from './pages/Savings';
 import Expenses from './pages/Expenses';
@@ -14,6 +15,9 @@ import Budget from './pages/Budget';
 import Goals from './pages/Goals';
 import Analytics from './pages/Analytics';
 import Profile from './pages/Profile';
+import AIAdvisor from './pages/AIAdvisor';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import Terms from './pages/Terms';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -24,6 +28,14 @@ const queryClient = new QueryClient({
     }
   }
 });
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
 
 function App() {
   const { token } = useAuthStore();
@@ -37,6 +49,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Router>
+        <ScrollToTop />
         <Toaster
           position="top-right"
           toastOptions={{
@@ -76,16 +89,22 @@ function App() {
               <Route path="/budget" element={<Budget />} />
               <Route path="/goals" element={<Goals />} />
               <Route path="/analytics" element={<Analytics />} />
+              <Route path="/ai-advisor" element={<AIAdvisor />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/privacy" element={<PrivacyPolicy />} />
+              <Route path="/terms" element={<Terms />} />
               <Route path="/login" element={<Navigate to="/" />} />
               <Route path="/register" element={<Navigate to="/" />} />
               <Route path="*" element={<Navigate to="/" />} />
             </>
           ) : (
             <>
+              <Route path="/" element={<Landing />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-              <Route path="*" element={<Navigate to="/login" />} />
+              <Route path="/privacy" element={<PrivacyPolicy />} />
+              <Route path="/terms" element={<Terms />} />
+              <Route path="*" element={<Navigate to="/" />} />
             </>
           )}
         </Routes>

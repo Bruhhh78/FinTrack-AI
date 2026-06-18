@@ -27,6 +27,7 @@ app.use('/api/recurring', require('./routes/recurring'));
 app.use('/api/notifications', require('./routes/notifications'));
 app.use('/api/user', require('./routes/user'));
 app.use('/api/savings', require('./routes/savings'));
+app.use('/api/ai', require('./routes/ai'));
 
 // Error handling middleware
 app.use((err, req, res, next) => {

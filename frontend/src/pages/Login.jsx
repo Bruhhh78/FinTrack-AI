@@ -159,6 +159,8 @@ const Login = () => {
 
         {/* Bottom note */}
         <p className="text-center text-xs mt-6" style={{ color: '#334155' }}>
+          <Link to="/" style={{ color: '#64748b', textDecoration: 'none' }}>← Back to home</Link>
+          {' · '}
           🔒 Your data is encrypted and secure
         </p>
       </motion.div>
