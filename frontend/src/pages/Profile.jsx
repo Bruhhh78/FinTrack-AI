@@ -2,23 +2,24 @@ import { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { userAPI } from '../services/api';
 import useAuthStore from '../store/authStore';
 import useThemeStore from '../store/themeStore';
 import Layout from '../components/Layout';
 import {
   User, Mail, Globe, Palette, Shield, Trash2, Save,
-  Calendar, Clock, Camera, Edit3, CheckCircle2, Wallet
+  Calendar, Clock, Camera, Edit3, CheckCircle2, Wallet, AlertTriangle
 } from 'lucide-react';
 
 const Profile = () => {
   const queryClient = useQueryClient();
-  const { user: storeUser, setUser } = useAuthStore();
+  const { user: storeUser, setUser, logout } = useAuthStore();
   const { theme, setTheme } = useThemeStore();
   const { data } = useQuery('profile', userAPI.getProfile);
   const { register, handleSubmit, reset, setValue } = useForm();
   const [saved, setSaved] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const user = data?.data?.user || storeUser || {};
 
@@ -47,6 +48,14 @@ const Profile = () => {
       toast.success('Profile updated!');
     },
     onError: () => toast.error('Failed to update profile')
+  });
+
+  const deleteMutation = useMutation(userAPI.deleteAccount, {
+    onSuccess: () => {
+      logout();
+      toast.success('Account deleted successfully');
+    },
+    onError: () => toast.error('Failed to delete account')
   });
 
   const memberSince = user.createdAt
@@ -205,11 +214,56 @@ const Profile = () => {
           <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 16 }}>
             Once you delete your account, all your data will be permanently removed. This action cannot be undone.
           </p>
-          <button onClick={() => toast.error('Please contact support to delete your account')} className="btn-danger">
+          <button onClick={() => setShowDeleteModal(true)} className="btn-danger">
             <Trash2 style={{ width: 16, height: 16 }} /> Delete Account
           </button>
         </motion.div>
       </motion.div>
+
+      {/* Delete Confirmation Modal */}
+      <AnimatePresence>
+        {showDeleteModal && (
+          <div style={{ position: 'fixed', inset: 0, zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(8px)' }}
+              onClick={() => setShowDeleteModal(false)}
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 10 }}
+              className="glass-card"
+              style={{ position: 'relative', width: '100%', maxWidth: 400, padding: 32, textAlign: 'center', border: '1px solid rgba(244,63,94,0.3)', boxShadow: '0 25px 50px -12px rgba(244,63,94,0.25)' }}
+            >
+              <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'rgba(244,63,94,0.1)', color: '#f43f5e', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px' }}>
+                <AlertTriangle style={{ width: 32, height: 32 }} />
+              </div>
+              <h3 style={{ fontSize: 20, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 12 }}>Delete Account?</h3>
+              <p style={{ fontSize: 14, color: 'var(--text-muted)', marginBottom: 24, lineHeight: 1.6 }}>
+                Are you absolutely sure? This action cannot be undone and will permanently delete your profile, budgets, expenses, and savings data.
+              </p>
+              <div style={{ display: 'flex', gap: 12 }}>
+                <button
+                  onClick={() => setShowDeleteModal(false)}
+                  style={{ flex: 1, padding: '12px', borderRadius: 12, fontSize: 14, fontWeight: 600, background: 'var(--bg-nav-hover)', color: 'var(--text-primary)', border: '1px solid var(--border)', cursor: 'pointer' }}
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={() => deleteMutation.mutate()}
+                  disabled={deleteMutation.isLoading}
+                  style={{ flex: 1, padding: '12px', borderRadius: 12, fontSize: 14, fontWeight: 600, background: '#f43f5e', color: '#fff', border: 'none', cursor: 'pointer', opacity: deleteMutation.isLoading ? 0.7 : 1 }}
+                >
+                  {deleteMutation.isLoading ? 'Deleting...' : 'Yes, Delete'}
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </Layout>
   );
 };

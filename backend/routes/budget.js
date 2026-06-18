@@ -55,17 +55,17 @@ router.get('/:month', auth, async (req, res) => {
         userId: req.userId,
         month: new Date(year, month - 1, 1),
         categoryLimits: [
-          { category: 'Food', limit: 10000 },
-          { category: 'Shopping', limit: 5000 },
-          { category: 'Transportation', limit: 3000 },
-          { category: 'Bills', limit: 15000 },
-          { category: 'Entertainment', limit: 2000 },
-          { category: 'Education', limit: 5000 },
-          { category: 'Health', limit: 2000 },
-          { category: 'Other', limit: 3000 }
+          { category: 'Food', limit: 0 },
+          { category: 'Shopping', limit: 0 },
+          { category: 'Transportation', limit: 0 },
+          { category: 'Bills', limit: 0 },
+          { category: 'Entertainment', limit: 0 },
+          { category: 'Education', limit: 0 },
+          { category: 'Health', limit: 0 },
+          { category: 'Other', limit: 0 }
         ]
       });
-      budget.totalBudget = budget.categoryLimits.reduce((sum, cat) => sum + cat.limit, 0);
+      budget.totalBudget = 0;
       await budget.save();
     }
 

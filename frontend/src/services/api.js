@@ -66,6 +66,7 @@ export const analyticsAPI = {
 export const userAPI = {
   getProfile: () => API.get('/user/profile'),
   updateProfile: (data) => API.put('/user/profile', data),
+  deleteAccount: () => API.delete('/user/profile'),
 };
 
 export const aiAPI = {
